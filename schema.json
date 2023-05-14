@@ -1,0 +1,1173 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+      "title": "Kefir Python Junior Test",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/login": {
+        "post": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Вход в систему",
+          "description": "После успешного входа в систему необходимо установить Cookies для пользователя",
+          "operationId": "login_login_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginModel"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CurrentUserResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/logout": {
+        "get": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Выход из системы",
+          "description": "При успешном выходе необходимо удалить установленные Cookies",
+          "operationId": "logout_logout_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/current": {
+        "get": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Получение данных о текущем пользователе",
+          "description": "Здесь находится вся информация, доступная пользователю о самом себе,\n        а так же информация является ли он администратором",
+          "operationId": "current_user_users_current_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CurrentUserResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Изменение данных пользователя",
+          "description": "Здесь пользователь имеет возможность изменить свои данные",
+          "operationId": "edit_user_users__pk__patch",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserModel"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users": {
+        "get": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Постраничное получение кратких данных обо всех пользователях",
+          "description": "Здесь находится вся информация, доступная пользователю о других пользователях",
+          "operationId": "users_users_get",
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "title": "Page",
+                "type": "integer"
+              },
+              "name": "page",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "title": "Size",
+                "type": "integer"
+              },
+              "name": "size",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UsersListResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/private/users": {
+        "get": {
+          "tags": [
+            "admin"
+          ],
+          "summary": "Постраничное получение кратких данных обо всех пользователях",
+          "description": "Здесь находится вся информация, доступная пользователю о других пользователях",
+          "operationId": "private_users_private_users_get",
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "title": "Page",
+                "type": "integer"
+              },
+              "name": "page",
+              "in": "query"
+            },
+            {
+              "required": true,
+              "schema": {
+                "title": "Size",
+                "type": "integer"
+              },
+              "name": "size",
+              "in": "query"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PrivateUsersListResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "admin"
+          ],
+          "summary": "Создание пользователя",
+          "description": "Здесь возможно занести в базу нового пользователя с минимальной информацией о нем",
+          "operationId": "private_create_users_private_users_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateCreateUserModel"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PrivateDetailUserResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/private/users/{pk}": {
+        "get": {
+          "tags": [
+            "admin"
+          ],
+          "summary": "Детальное получение информации о пользователе",
+          "description": "Здесь администратор может увидеть всю существующую пользовательскую информацию",
+          "operationId": "private_get_user_private_users__pk__get",
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "title": "Pk",
+                "type": "integer"
+              },
+              "name": "pk",
+              "in": "path"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PrivateDetailUserResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "admin"
+          ],
+          "summary": "Удаление пользователя",
+          "description": "Удаление пользователя",
+          "operationId": "private_delete_user_private_users__pk__delete",
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "title": "Pk",
+                "type": "integer"
+              },
+              "name": "pk",
+              "in": "path"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful Response"
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "admin"
+          ],
+          "summary": "Изменение информации о пользователе",
+          "description": "Здесь администратор может изменить любую информацию о пользователе",
+          "operationId": "private_patch_user_private_users__pk__patch",
+          "parameters": [
+            {
+              "required": true,
+              "schema": {
+                "title": "Pk",
+                "type": "integer"
+              },
+              "name": "pk",
+              "in": "path"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateUpdateUserModel"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PrivateDetailUserResponseModel"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "403": {
+              "description": "Forbidden",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CodelessErrorResponseModel"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "CitiesHintModel": {
+          "title": "CitiesHintModel",
+          "required": [
+            "id",
+            "name"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            }
+          }
+        },
+        "CurrentUserResponseModel": {
+          "title": "CurrentUserResponseModel",
+          "required": [
+            "first_name",
+            "last_name",
+            "other_name",
+            "email",
+            "phone",
+            "birthday",
+            "is_admin"
+          ],
+          "type": "object",
+          "properties": {
+            "first_name": {
+              "title": "First Name",
+              "type": "string"
+            },
+            "last_name": {
+              "title": "Last Name",
+              "type": "string"
+            },
+            "other_name": {
+              "title": "Other Name",
+              "type": "string"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Phone",
+              "type": "string"
+            },
+            "birthday": {
+              "title": "Birthday",
+              "type": "string",
+              "format": "date"
+            },
+            "is_admin": {
+              "title": "Is Admin",
+              "type": "boolean"
+            }
+          }
+        },
+        "ErrorResponseModel": {
+          "title": "ErrorResponseModel",
+          "required": [
+            "code",
+            "message"
+          ],
+          "type": "object",
+          "properties": {
+            "code": {
+              "title": "Code",
+              "type": "integer"
+            },
+            "message": {
+              "title": "Message",
+              "type": "string"
+            }
+          }
+        },
+        "CodelessErrorResponseModel": {
+          "title": "CodelessErrorResponseModel",
+          "required": [
+            "message"
+          ],
+          "type": "object",
+          "properties": {
+            "message": {
+              "title": "Message",
+              "type": "string"
+            }
+          }
+        },
+        "HTTPValidationError": {
+          "title": "HTTPValidationError",
+          "type": "object",
+          "properties": {
+            "detail": {
+              "title": "Detail",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              }
+            }
+          }
+        },
+        "LoginModel": {
+          "title": "LoginModel",
+          "required": [
+            "login",
+            "password"
+          ],
+          "type": "object",
+          "properties": {
+            "login": {
+              "title": "Login",
+              "type": "string"
+            },
+            "password": {
+              "title": "Password",
+              "type": "string"
+            }
+          }
+        },
+        "PaginatedMetaDataModel": {
+          "title": "PaginatedMetaDataModel",
+          "required": [
+            "total",
+            "page",
+            "size"
+          ],
+          "type": "object",
+          "properties": {
+            "total": {
+              "title": "Total",
+              "type": "integer"
+            },
+            "page": {
+              "title": "Page",
+              "type": "integer"
+            },
+            "size": {
+              "title": "Size",
+              "type": "integer"
+            }
+          }
+        },
+        "PrivateCreateUserModel": {
+          "title": "PrivateCreateUserModel",
+          "required": [
+            "first_name",
+            "last_name",
+            "email",
+            "is_admin",
+            "password"
+          ],
+          "type": "object",
+          "properties": {
+            "first_name": {
+              "title": "First Name",
+              "type": "string"
+            },
+            "last_name": {
+              "title": "Last Name",
+              "type": "string"
+            },
+            "other_name": {
+              "title": "Other Name",
+              "type": "string"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Phone",
+              "type": "string"
+            },
+            "birthday": {
+              "title": "Birthday",
+              "type": "string",
+              "format": "date"
+            },
+            "city": {
+              "title": "City",
+              "type": "integer"
+            },
+            "additional_info": {
+              "title": "Additional Info",
+              "type": "string"
+            },
+            "is_admin": {
+              "title": "Is Admin",
+              "type": "boolean"
+            },
+            "password": {
+              "title": "Password",
+              "type": "string"
+            }
+          }
+        },
+        "PrivateDetailUserResponseModel": {
+          "title": "PrivateDetailUserResponseModel",
+          "required": [
+            "id",
+            "first_name",
+            "last_name",
+            "other_name",
+            "email",
+            "phone",
+            "birthday",
+            "city",
+            "additional_info",
+            "is_admin"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "first_name": {
+              "title": "First Name",
+              "type": "string"
+            },
+            "last_name": {
+              "title": "Last Name",
+              "type": "string"
+            },
+            "other_name": {
+              "title": "Other Name",
+              "type": "string"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Phone",
+              "type": "string"
+            },
+            "birthday": {
+              "title": "Birthday",
+              "type": "string",
+              "format": "date"
+            },
+            "city": {
+              "title": "City",
+              "type": "integer"
+            },
+            "additional_info": {
+              "title": "Additional Info",
+              "type": "string"
+            },
+            "is_admin": {
+              "title": "Is Admin",
+              "type": "boolean"
+            }
+          }
+        },
+        "PrivateUpdateUserModel": {
+          "title": "PrivateUpdateUserModel",
+          "required": [
+            "id"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "first_name": {
+              "title": "First Name",
+              "type": "string"
+            },
+            "last_name": {
+              "title": "Last Name",
+              "type": "string"
+            },
+            "other_name": {
+              "title": "Other Name",
+              "type": "string"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Phone",
+              "type": "string"
+            },
+            "birthday": {
+              "title": "Birthday",
+              "type": "string",
+              "format": "date"
+            },
+            "city": {
+              "title": "City",
+              "type": "integer"
+            },
+            "additional_info": {
+              "title": "Additional Info",
+              "type": "string"
+            },
+            "is_admin": {
+              "title": "Is Admin",
+              "type": "boolean"
+            }
+          }
+        },
+        "PrivateUsersListHintMetaModel": {
+          "title": "PrivateUsersListHintMetaModel",
+          "required": [
+            "city"
+          ],
+          "type": "object",
+          "properties": {
+            "city": {
+              "title": "City",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CitiesHintModel"
+              }
+            }
+          }
+        },
+        "PrivateUsersListMetaDataModel": {
+          "title": "PrivateUsersListMetaDataModel",
+          "required": [
+            "pagination",
+            "hint"
+          ],
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "$ref": "#/components/schemas/PaginatedMetaDataModel"
+            },
+            "hint": {
+              "$ref": "#/components/schemas/PrivateUsersListHintMetaModel"
+            }
+          }
+        },
+        "PrivateUsersListResponseModel": {
+          "title": "PrivateUsersListResponseModel",
+          "required": [
+            "data",
+            "meta"
+          ],
+          "type": "object",
+          "properties": {
+            "data": {
+              "title": "Data",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UsersListElementModel"
+              }
+            },
+            "meta": {
+              "$ref": "#/components/schemas/PrivateUsersListMetaDataModel"
+            }
+          }
+        },
+        "UpdateUserModel": {
+          "title": "UpdateUserModel",
+          "type": "object",
+          "properties": {
+            "first_name": {
+              "title": "First Name",
+              "type": "string"
+            },
+            "last_name": {
+              "title": "Last Name",
+              "type": "string"
+            },
+            "other_name": {
+              "title": "Other Name",
+              "type": "string"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Phone",
+              "type": "string"
+            },
+            "birthday": {
+              "title": "Birthday",
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "UpdateUserResponseModel": {
+          "title": "UpdateUserResponseModel",
+          "required": [
+            "id",
+            "first_name",
+            "last_name",
+            "other_name",
+            "email",
+            "phone",
+            "birthday"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "first_name": {
+              "title": "First Name",
+              "type": "string"
+            },
+            "last_name": {
+              "title": "Last Name",
+              "type": "string"
+            },
+            "other_name": {
+              "title": "Other Name",
+              "type": "string"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string"
+            },
+            "phone": {
+              "title": "Phone",
+              "type": "string"
+            },
+            "birthday": {
+              "title": "Birthday",
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "UsersListElementModel": {
+          "title": "UsersListElementModel",
+          "required": [
+            "id",
+            "first_name",
+            "last_name",
+            "email"
+          ],
+          "type": "object",
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "integer"
+            },
+            "first_name": {
+              "title": "First Name",
+              "type": "string"
+            },
+            "last_name": {
+              "title": "Last Name",
+              "type": "string"
+            },
+            "email": {
+              "title": "Email",
+              "type": "string"
+            }
+          }
+        },
+        "UsersListMetaDataModel": {
+          "title": "UsersListMetaDataModel",
+          "required": [
+            "pagination"
+          ],
+          "type": "object",
+          "properties": {
+            "pagination": {
+              "$ref": "#/components/schemas/PaginatedMetaDataModel"
+            }
+          }
+        },
+        "UsersListResponseModel": {
+          "title": "UsersListResponseModel",
+          "required": [
+            "data",
+            "meta"
+          ],
+          "type": "object",
+          "properties": {
+            "data": {
+              "title": "Data",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/UsersListElementModel"
+              }
+            },
+            "meta": {
+              "$ref": "#/components/schemas/UsersListMetaDataModel"
+            }
+          }
+        },
+        "ValidationError": {
+          "title": "ValidationError",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "type": "object",
+          "properties": {
+            "loc": {
+              "title": "Location",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "msg": {
+              "title": "Message",
+              "type": "string"
+            },
+            "type": {
+              "title": "Error Type",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  
