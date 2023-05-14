@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -24,9 +24,15 @@ class User(Base):
     email = Column(String(), default='Empty')
     phone = Column(String(), default='Empty')
     birthday = Column(DateTime(), default=datetime.now())
-    city = Column(Integer(), default=1)
+    city = Column(Integer(), ForeignKey('city.id', onupdate='CASCADE'))
     additional_info = Column(String(), default="Empty")
     is_admin = Column(Boolean(), default=False)
+
+class City(Base):
+    __tablename__ = 'city'
+
+    id = Column(Integer(), primary_key=True, nullable=False, unique=True)
+    name = Column(Integer(), nullable=False, unique=True)
 
 
 Base.metadata.create_all(bind=engine)
