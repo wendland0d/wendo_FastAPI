@@ -24,6 +24,8 @@ class User(Base):
     email = Column(String(), default='Empty')
     phone = Column(String(), default='Empty')
     birthday = Column(DateTime(), default=datetime.now())
+    city = Column(Integer(), default=1)
+    additional_info = Column(String(), default="Empty")
     is_admin = Column(Boolean(), default=False)
 
 
