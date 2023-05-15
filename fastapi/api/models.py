@@ -1,8 +1,8 @@
 import os
-from datetime import datetime
+from datetime import date
 
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -23,7 +23,7 @@ class User(Base):
     other_name = Column(String(), default='Empty')
     email = Column(String(), default='Empty')
     phone = Column(String(), default='Empty')
-    birthday = Column(DateTime(), default=datetime.now())
+    birthday = Column(Date(), default=date.today())
     city = Column(Integer(), ForeignKey('city.id', onupdate='CASCADE'))
     additional_info = Column(String(), default="Empty")
     is_admin = Column(Boolean(), default=False)

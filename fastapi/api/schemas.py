@@ -12,7 +12,7 @@ class CurrentUserResponseModel(BaseModel):
     other_name: str = Field(title="Other Name")
     email: str = Field(title="Email")
     phone: str = Field(title="Phone")
-    birthday: str = Field(title="Birthday")
+    birthday: date = Field(title="Birthday")
     is_admin: bool = Field(title="Is Admin")
 
 class ErrorResponseModel(BaseModel):
@@ -31,7 +31,6 @@ class CodelessErrorResponseModel(BaseModel):
     message: str = Field(title="Message")
 
 class UpdateUserModel(BaseModel):
-    id: int = Field(title="Id")
     first_name: str = Field(title="First Name")
     last_name: str = Field(title="Last Name")
     other_name: str = Field(title="Other Name")
@@ -83,15 +82,15 @@ class PrivateUsersListResponseModel(BaseModel):
 
 class PrivateDetailUserResponseModel(BaseModel):
     id: int = Field(title="Id")
-    first_name: str = Field(title="First Name")
-    last_name: str = Field(title="Last Name")
-    other_name: str = Field(title="Other Name")
-    email: str = Field(title="Email")
-    phone: str = Field(title="Phone")
-    birthday: str = Field(title="Birthday")
-    city: int = Field(title="City")
-    additional_info: str = Field(title="Additional Info")
-    is_admin: bool = Field(title="Is Admin")
+    first_name: Optional[str] = Field(title="First Name")
+    last_name: Optional[str] = Field(title="Last Name")
+    other_name: Optional[str] = Field(title="Other Name")
+    email: Optional[str] = Field(title="Email")
+    phone: Optional[str] = Field(title="Phone")
+    birthday: Optional[date] = Field(title="Birthday")
+    city: Optional[int] = Field(title="City")
+    additional_info: Optional[str] = Field(title="Additional Info")
+    is_admin: Optional[bool] = Field(title="Is Admin")
 
 class PrivateUpdateUserModel(BaseModel):
     id: int = Field(title="Id")
@@ -106,6 +105,7 @@ class PrivateUpdateUserModel(BaseModel):
     is_admin: Optional[bool] = Field(title="Is Admin")
 
 class PrivateCreateUserModel(BaseModel):
+    login: str = Field(title="Login")
     first_name: str = Field(title="First Name")
     last_name: str = Field(title="Last Name")
     other_name: Optional[str] = Field(title="Other Name")

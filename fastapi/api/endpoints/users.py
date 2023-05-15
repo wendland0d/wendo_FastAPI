@@ -10,8 +10,8 @@ from ..schemas import (
     UpdateUserResponseModel, 
     HTTPValidationError,
     UserListResponseModel,
-    UserListElementModel, 
-    UserListMetaDataModel,
+    UsersListElementModel, 
+    UsersListMetaDataModel,
     PaginatedMetaDataModel)
 
 users_router = APIRouter(prefix='/users')
@@ -74,12 +74,12 @@ def get_users(request: Request, page: int = Query(..., title="Page", gt=0), size
         users = db.query(User).offset((page - 1)*size).limit(size).all()
         total = db.query(User).count()
 
-    return UserListResponseModel(data=[UserListElementModel(
+    return UserListResponseModel(data=[UsersListElementModel(
                                     id=user.pk, 
                                     first_name=user.first_name, 
                                     last_name=user.last_name, 
                                     email=user.email) for user in users], 
-                                meta=UserListMetaDataModel(
+                                meta=UsersListMetaDataModel(
                                     pagination=PaginatedMetaDataModel(
                                     total=total, 
                                     page=page, 
