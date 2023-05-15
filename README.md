@@ -1,7 +1,7 @@
 # wendo_FastAPI
 made by @wendo as Test-case Junior Python Developer
 ## How to run
-This case is based on FastAPI uses Docker-Compose as a containerization system for work.Actually, to run it, you will need to install Dokker and Docker-Compose on your server or work machine. The easiest way is presented in the form of official documentation on the website https://docs.docker.com/desktop/. After installing Dokker and Docker-Compose, you can start deploying the API.
+This case is based on FastAPI uses Docker-Compose as a containerization system for work. Actually, to run it, you will need to install Docker and Docker-Compose on your server or work machine. The easiest way is presented in the form of official documentation on the website https://docs.docker.com/desktop/. After installing Dokker and Docker-Compose, you can start deploying the API.
 
 1. Step one - you need to download (clone) the repository to your server - use the following command 
 
