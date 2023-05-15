@@ -5,7 +5,7 @@ This case is based on FastAPI uses Docker-Compose as a containerization system f
 
 1. Step one - you need to download (clone) the repository to your server - use the following command 
 
-```git clone git@github.com:wendland0d/wendo_FastAPI.git```
+```git clone [git@github.com:wendland0d/wendo_FastAPI.git](https://github.com/wendland0d/wendo_FastAPI.git)```
 
 2. Step two - after you have successfully cloned the repository, you need to go to the repository folder using the command
 
